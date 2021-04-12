@@ -103,11 +103,11 @@ public class AESCipher {
      * Takes in a plain text string and a key string and encrypts using AES Encryption for 128 bits
      * @param pTextHex the plaintext string in hexstring formated to be encrypted, 32 chars
      * @param keyHex the initial keyhex to used for encryption in hexstring format, 32 chars
-     * @return the encrypted plaintext returned
+     * @return the encrypted plaintext returned in an array length of 1
      */
     public static String AES(String pTextHex, String keyHex){
         int[][] outStateHex;
-        String cipherText;
+        String[] cipherText;
         String[] roundKeysHex = aesRoundKeys(keyHex);
         int[][] plainTextMatrix = parseHexString(pTextHex);
 
@@ -121,11 +121,11 @@ public class AESCipher {
         outStateHex = AESNibbleSub(outStateHex); //Round 11
         outStateHex = AESShiftRow(outStateHex);  //Round 11
         outStateHex = AESStateXOR(outStateHex, parseHexString(roundKeysHex[10])); //Round 11
-        cipherText = aesCipherFormat(outStateHex);
+        cipherText[0] = aesCipherFormat(outStateHex);
 
         System.out.println("Plain text input:\t" + pTextHex);
         System.out.println("Key Hex input:\t\t" + keyHex);
-        System.out.println("Cipher text output:\t" + cipherText);
+        System.out.println("Cipher text output:\t" + cipherText[0]);
 
         return cipherText;
     }
